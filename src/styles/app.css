@@ -1,0 +1,726 @@
+/* @MX:NOTE: Swiss Minimalism 기반 스타일시트. 흰 배경·파랑 액센트 1색·8px 그리드·토큰 변수 전용.
+   setosa/redblobgames 계열 — 장식 최소, 콘텐츠·알고리즘 격자 집중. (step023/step030 확정) */
+
+/* ─── 리셋 & 베이스 ─────────────────────────────── */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: var(--font-ui);
+	font-size: var(--fs-2);
+	font-weight: 400;
+	color: var(--text);
+	background: var(--bg);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* ─── 앱 컨테이너 ────────────────────────────────── */
+main#app {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: var(--space-4);
+}
+
+/* ─── 헤더 ───────────────────────────────────────── */
+header.app-header {
+	margin-bottom: var(--space-4);
+	padding-bottom: var(--space-3);
+	border-bottom: 1px solid var(--border);
+}
+
+h1.app-title {
+	font-size: var(--fs-5);
+	font-weight: 700;
+	font-family: var(--font-ui);
+	letter-spacing: -0.03em;
+	line-height: 1.1;
+	margin-bottom: var(--space-1);
+}
+
+p.app-subtitle {
+	font-size: var(--fs-1);
+	color: var(--muted);
+	font-weight: 400;
+}
+
+/* ─── 패널 (카드) ────────────────────────────────── */
+section.panel {
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: var(--space-4);
+	margin-bottom: var(--space-3);
+	box-shadow: var(--shadow);
+}
+
+/* ─── 입력 영역 ──────────────────────────────────── */
+/* @MX:NOTE: 입력 폼 실측 높이(259px) 예약 → JS 채움 전후 CLS 방지. step096 성능. */
+#input.panel {
+	min-height: 259px;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	margin-bottom: var(--space-3);
+}
+
+.field:last-child {
+	margin-bottom: 0;
+}
+
+.field--row {
+	flex-flow: row wrap;
+	align-items: flex-end;
+	gap: var(--space-2);
+}
+
+label {
+	font-size: var(--fs-1);
+	font-weight: 700;
+	color: var(--text);
+	display: block;
+}
+
+input.text-input {
+	font-family: var(--font-mono);
+	font-size: var(--fs-2);
+	color: var(--text);
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	padding: var(--space-2) var(--space-3);
+	width: 100%;
+	transition: border-color var(--dur) var(--ease), box-shadow var(--dur)
+		var(--ease);
+	outline: none;
+}
+
+input.text-input:hover {
+	border-color: var(--muted);
+}
+
+input.text-input:focus-visible {
+	border-color: var(--accent);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+select.select {
+	font-family: var(--font-ui);
+	font-size: var(--fs-1);
+	color: var(--text);
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	padding: var(--space-2) var(--space-3);
+	cursor: pointer;
+	outline: none;
+	transition: border-color var(--dur) var(--ease);
+}
+
+select.select:hover {
+	border-color: var(--muted);
+}
+
+select.select:focus-visible {
+	border-color: var(--accent);
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+p.input-error {
+	font-size: var(--fs-1);
+	color: var(--mismatch);
+	margin-top: var(--space-1);
+	font-weight: 400;
+}
+
+/* ─── LPS 패널 (details/summary) ────────────────── */
+details > summary.panel-summary {
+	font-size: var(--fs-2);
+	font-weight: 700;
+	cursor: pointer;
+	padding: var(--space-2) 0;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	user-select: none;
+	transition: color var(--dur) var(--ease);
+}
+
+details > summary.panel-summary::before {
+	content: "▶";
+	font-size: var(--fs-1);
+	color: var(--muted);
+	transition: transform var(--dur) var(--ease);
+	display: inline-block;
+}
+
+details[open] > summary.panel-summary::before {
+	transform: rotate(90deg);
+}
+
+details > summary.panel-summary:hover {
+	color: var(--accent);
+}
+
+details > summary.panel-summary:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+#lps.lps-panel {
+	margin-top: var(--space-2);
+	/* @MX:NOTE: LPS 표가 채워지기 전 높이 예약 → 초기 로드 CLS 완화. step079 성능. */
+	min-height: 132px;
+}
+
+.lps-grid {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	overflow-x: auto;
+}
+
+.lps-line {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.lps-label {
+	font-size: var(--fs-1);
+	color: var(--muted);
+	font-family: var(--font-ui);
+	min-width: 72px;
+	font-weight: 700;
+}
+
+.lps-row {
+	display: flex;
+	gap: 2px;
+}
+
+.lps-cell {
+	font-family: var(--font-mono);
+	font-size: var(--fs-1);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	background: var(--bg);
+	transition: background var(--dur) var(--ease);
+}
+
+/* LPS 값 행: 약간 굵고 크게 */
+.lps-row--val .lps-cell {
+	font-size: var(--fs-2);
+	font-weight: 700;
+	color: var(--text);
+}
+
+.lps-cell--active {
+	background: color-mix(in srgb, var(--accent) 12%, transparent);
+	border-color: var(--accent);
+}
+
+/* ─── 트랙 섹션 ──────────────────────────────────── */
+section.tracks {
+	display: flex;
+	flex-direction: column;
+}
+
+.track-block {
+	padding: var(--space-3) 0;
+	/* @MX:NOTE: 트랙(제목+격자 2행) 실측 높이(187px) 기준 예약 → 격자 채움 시 CLS≈0. step096 성능. */
+	min-height: 188px;
+}
+
+h2.track-title {
+	font-size: var(--fs-4);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	margin-bottom: var(--space-3);
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.track-tag {
+	display: inline-flex;
+	align-items: center;
+	font-size: var(--fs-1);
+	font-weight: 400;
+	padding: 2px var(--space-2);
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	background: var(--surface);
+	color: var(--muted);
+	vertical-align: middle;
+}
+
+.track-tag--good {
+	background: var(--match-soft);
+	border-color: var(--match);
+	color: var(--match-ink);
+}
+
+.track-tag--bad {
+	background: var(--mismatch-soft);
+	border-color: var(--mismatch);
+	color: var(--mismatch-ink);
+}
+
+hr.track-divider {
+	border: none;
+	border-top: 2px solid var(--muted);
+	margin: var(--space-4) 0;
+}
+
+/* ─── 격자 트랙 (grid-track / grid-row / cell) ──── */
+.grid-track {
+	--cell: 34px;
+	--gap: 2px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	overflow-x: auto;
+	/* @MX:NOTE: 우측 여유 패딩 — 격자 마지막 셀이 패널 경계에 닿지 않게(step089 디자인 검증). */
+	padding: 0 var(--space-1) var(--space-1) 0;
+}
+
+/* 빈 입력 안내 (빈 상태) */
+.track-empty {
+	color: var(--muted);
+	font-size: var(--fs-1);
+	padding: var(--space-3) 0;
+}
+
+.grid-row {
+	display: flex;
+	gap: var(--gap, 2px);
+	align-items: center;
+	white-space: nowrap;
+}
+
+/* 패턴 행: CSS 변수 --offset으로 미끄러짐. transform으로 reflow 회피(GPU 합성). step071 최적화. */
+.grid-row--pattern {
+	transform: translateX(
+		calc(var(--offset, 0) * (var(--cell, 34px) + var(--gap, 2px)))
+	);
+	transition: transform var(--dur) var(--ease);
+}
+
+/* 텍스트 행 */
+.grid-row--text {
+	/* 항상 기준 위치 */
+}
+
+/* ─── 셀 ─────────────────────────────────────────── */
+.cell {
+	font-family: var(--font-mono);
+	font-size: var(--fs-2);
+	font-weight: 400;
+	width: var(--cell, 34px);
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	background: var(--bg);
+	color: var(--text);
+	flex-shrink: 0;
+	position: relative;
+	transition: background var(--dur) var(--ease), border-color var(--dur)
+		var(--ease), color var(--dur) var(--ease);
+}
+
+.cell--active {
+	outline: 2px solid var(--accent);
+	outline-offset: 1px;
+	z-index: 1;
+}
+
+.cell--match {
+	background: var(--match-soft);
+	border-color: var(--match);
+}
+
+.cell--mismatch {
+	background: var(--mismatch-soft);
+	border-color: var(--mismatch);
+}
+
+.cell--jump {
+	background: var(--jump-soft);
+	border-color: var(--jump);
+}
+
+.cell--found {
+	background: var(--match);
+	border-color: var(--match);
+	color: #fff;
+	font-weight: 700;
+}
+
+/* 색맹 접근성: 상태를 색뿐 아니라 글리프로도 표시 (step039 검증 보완) */
+.cell--match::after,
+.cell--mismatch::after,
+.cell--jump::after {
+	position: absolute;
+	top: -10px;
+	right: -4px;
+	font-size: 0.9rem;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.cell--match::after {
+	content: "✓";
+	color: var(--match);
+}
+
+.cell--mismatch::after {
+	content: "✗";
+	color: var(--mismatch);
+}
+
+.cell--jump::after {
+	content: "↪";
+	color: var(--jump);
+}
+
+/* ─── 캡션 ───────────────────────────────────────── */
+#caption.caption {
+	font-size: var(--fs-2);
+	line-height: 1.7;
+	padding: var(--space-3) 0;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+}
+
+.caption-tag {
+	display: inline-flex;
+	align-items: center;
+	font-size: var(--fs-1);
+	font-weight: 700;
+	padding: 2px var(--space-2);
+	border-radius: var(--radius-sm);
+	background: var(--surface);
+	border: 1px solid var(--border);
+	/* @MX:NOTE: surface 위 4.5:1 충족 위해 text 색(muted 대신). step102 접근성. */
+	color: var(--text);
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.caption-text {
+	font-size: var(--fs-2);
+	color: var(--text);
+	flex: 1;
+}
+
+/* ─── 비교 카운터 ─────────────────────────────────── */
+#counter.counter {
+	padding: var(--space-3) 0 0;
+	/* @MX:NOTE: 카운터 2행 실측 높이(69px) 기준 예약 → CLS 완화. step096 성능. */
+	min-height: 72px;
+}
+
+.counter-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	margin-bottom: var(--space-2);
+}
+
+.counter-row:last-child {
+	margin-bottom: 0;
+}
+
+.counter-label {
+	font-size: var(--fs-1);
+	font-weight: 700;
+	min-width: 64px;
+	color: var(--text);
+}
+
+.counter-bar {
+	flex: 1;
+	height: 12px;
+	background: var(--surface);
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+	border: 1px solid var(--border);
+}
+
+.counter-fill {
+	height: 100%;
+	border-radius: var(--radius-sm);
+	width: 0%;
+	/* @MX:NOTE: 값이 작아도 색(KMP 파랑/Brute 빨강)이 보이도록 최소 너비(step089 디자인 검증 — 색 분화 가시성). */
+	min-width: 3px;
+	transition: width var(--dur) var(--ease);
+}
+
+.counter-fill--kmp {
+	background: var(--accent);
+}
+
+.counter-fill--brute {
+	background: var(--mismatch);
+}
+
+.counter-num {
+	font-family: var(--font-mono);
+	font-size: var(--fs-1);
+	font-weight: 700;
+	min-width: 40px;
+	text-align: right;
+	color: var(--text);
+}
+
+/* ─── 플레이백 컨트롤 ─────────────────────────────── */
+#playback.playback {
+	padding: var(--space-3) 0 0;
+	/* @MX:NOTE: JS가 컨트롤을 채우기 전 높이를 예약해 초기 로드 CLS(레이아웃 시프트) 완화. step079 성능. */
+	min-height: 96px;
+}
+
+.playback-controls {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+}
+
+/* 공통 컨트롤 버튼 */
+.ctrl-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: var(--space-2);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	background: var(--bg);
+	color: var(--text);
+	font-size: var(--fs-2);
+	font-family: var(--font-ui);
+	cursor: pointer;
+	transition: background var(--dur) var(--ease), border-color var(--dur)
+		var(--ease), color var(--dur) var(--ease);
+}
+
+.ctrl-btn:hover {
+	background: var(--surface);
+	border-color: var(--muted);
+}
+
+.ctrl-btn:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.ctrl-btn:active {
+	background: var(--surface);
+}
+
+.ctrl-btn--play {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: #fff;
+	font-weight: 700;
+}
+
+.ctrl-btn--play:hover {
+	background: color-mix(in srgb, var(--accent) 85%, #000);
+	border-color: color-mix(in srgb, var(--accent) 85%, #000);
+	color: #fff;
+}
+
+.ctrl-btn--play:active {
+	background: color-mix(in srgb, var(--accent) 75%, #000);
+}
+
+/* 속도 그룹 */
+.speed-group {
+	display: flex;
+	gap: 2px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.speed-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: var(--space-1) var(--space-2);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	background: var(--bg);
+	color: var(--muted);
+	font-size: var(--fs-1);
+	font-family: var(--font-ui);
+	cursor: pointer;
+	transition: background var(--dur) var(--ease), border-color var(--dur)
+		var(--ease), color var(--dur) var(--ease);
+}
+
+.speed-btn:hover {
+	background: var(--surface);
+	border-color: var(--muted);
+	color: var(--text);
+}
+
+.speed-btn:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.speed-btn:active {
+	background: var(--surface);
+}
+
+.speed-btn.is-active {
+	/* @MX:NOTE: 활성 배경은 흰색 유지(틴트 제거) + accent 텍스트 → WCAG AA 대비 확보. 강조는 테두리+굵기로. step102 접근성. */
+	background: var(--bg);
+	border-color: var(--accent);
+	color: var(--accent);
+	font-weight: 700;
+	box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* 진행 슬라이더 */
+.playback-progress {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	flex: 1;
+	min-width: 160px;
+}
+
+.progress-slider {
+	width: 100%;
+	height: 4px;
+	appearance: none;
+	background: var(--surface);
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	outline: none;
+	cursor: pointer;
+	transition: background var(--dur) var(--ease);
+	accent-color: var(--accent);
+}
+
+.progress-slider:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.progress-slider::-webkit-slider-thumb {
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--accent);
+	border: 2px solid #fff;
+	box-shadow: 0 1px 4px rgb(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.progress-slider::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--accent);
+	border: 2px solid #fff;
+	cursor: pointer;
+}
+
+.step-label {
+	font-family: var(--font-mono);
+	font-size: var(--fs-1);
+	color: var(--muted);
+	white-space: nowrap;
+}
+
+/* ─── 푸터 (키보드 힌트) ─────────────────────────── */
+footer.app-footer {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: var(--space-3) var(--space-4);
+	border-top: 1px solid var(--border);
+	font-size: var(--fs-1);
+	color: var(--muted);
+	text-align: left;
+}
+
+/* ─── 반응형 (모바일 <768px) ──────────────────────── */
+@media (width <= 767px) {
+	main#app {
+		padding: var(--space-3);
+	}
+
+	h1.app-title {
+		font-size: var(--fs-4);
+	}
+
+	section.panel {
+		padding: var(--space-3);
+	}
+
+	.grid-track {
+		--cell: 28px;
+	}
+
+	.cell {
+		width: 28px;
+		height: 36px;
+		font-size: var(--fs-1);
+	}
+
+	.field--row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.speed-group {
+		flex-wrap: wrap;
+	}
+
+	.playback-controls {
+		gap: var(--space-1);
+	}
+
+	.playback-progress {
+		min-width: 120px;
+	}
+
+	.counter-row {
+		flex-wrap: wrap;
+		gap: var(--space-2);
+	}
+
+	.lps-cell {
+		width: 32px;
+		height: 32px;
+	}
+}

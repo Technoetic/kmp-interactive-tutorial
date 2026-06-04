@@ -1,0 +1,33 @@
+# 의존성
+node_modules/
+
+# 빌드 산출물 (CI에서 생성)
+dist/
+
+# 검증/조사 임시 산출물 (하네스 부산물 — 레포에 불필요)
+.lighthouseci/
+coverage/
+step_archive/
+.brainstorming-fired-*
+
+# 로컬 개발 하네스 (공개 레포에 불필요)
+.claude/
+CLAUDE.md
+
+# 루트의 일회성 검증 스크립트
+playwright-*.mjs
+a11y.mjs
+e2e.mjs
+e2e-shots.mjs
+keyboard.mjs
+mouse.mjs
+console-check.mjs
+grid-overlay.mjs
+ui-regression.mjs
+visual-regression.mjs
+load-test.mjs
+verify-dist.mjs
+
+# OS / 에디터
+.DS_Store
+Thumbs.db

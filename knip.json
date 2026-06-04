@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["src/main.js", "vite.config.js"],
+  "project": ["src/**/*.js"],
+  "ignore": ["playwright-*.mjs", "step_archive/**", "tests/**"],
+  "ignoreDependencies": [
+    "@axe-core/playwright",
+    "axe-core",
+    "@lhci/cli",
+    "c8",
+    "playwright",
+    "rollup-plugin-visualizer",
+    "stylelint-config-standard",
+    "stylelint",
+    "@vitest/coverage-v8",
+    "knip"
+  ]
+}

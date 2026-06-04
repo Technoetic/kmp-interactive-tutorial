@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KMP 한 칸씩 — 커누스-모리스-프랫 알고리즘 따라가기</title>
+    <meta
+      name="description"
+      content="텍스트에서 패턴을 '되돌아가지 않고' 찾는 KMP 알고리즘을 한 칸씩 직접 따라가며 배우는 인터랙티브 튜토리얼"
+    />
+  </head>
+  <body>
+    <main id="app">
+      <header class="app-header">
+        <h1 class="app-title">KMP 한 칸씩</h1>
+        <p class="app-subtitle">
+          Ctrl+F가 텍스트에서 단어를 찾을 때, 어떻게 <strong>되돌아가지 않고</strong> 빠르게 찾는지 한 칸씩 따라가
+          봅시다.
+        </p>
+      </header>
+
+      <section id="input" class="panel" aria-label="입력"></section>
+
+      <section class="panel" aria-label="실패함수 표">
+        <details open>
+          <summary class="panel-summary">실패함수(LPS) 표 — 패턴이 자기 자신과 얼마나 겹치는지</summary>
+          <div id="lps" class="lps-panel"></div>
+        </details>
+      </section>
+
+      <section class="panel tracks" aria-label="탐색 시각화">
+        <div class="track-block">
+          <h2 class="track-title">KMP <span class="track-tag track-tag--good">되돌아가지 않음</span></h2>
+          <div id="track-kmp"></div>
+        </div>
+        <hr class="track-divider" />
+        <div class="track-block">
+          <h2 class="track-title">Brute-force <span class="track-tag track-tag--bad">매번 되돌아감</span></h2>
+          <div id="track-brute"></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="설명과 비교">
+        <p id="caption" class="caption"></p>
+        <div id="counter" class="counter" aria-label="비교 횟수 비교"></div>
+      </section>
+
+      <section id="playback" class="panel playback" aria-label="재생 컨트롤"></section>
+
+      <footer class="app-footer">
+        <p>Space 재생/정지 · → 다음 · ← 이전 · R 처음으로</p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

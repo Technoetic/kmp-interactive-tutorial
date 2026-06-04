@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "checkJs": true,
+    "allowJs": true,
+    "noEmit": true,
+    "strict": false,
+    "lib": ["es2020", "dom", "dom.iterable"]
+  },
+  "include": ["src/**/*.js"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
