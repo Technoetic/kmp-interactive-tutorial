@@ -22,8 +22,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      # @MX:NOTE: Vite 8(rolldown)의 플랫폼별 네이티브 바이너리는 npm ci + Windows-lock 조합에서
+      # 누락된다(rolldown-binding.linux-x64-gnu.node MODULE_NOT_FOUND). npm install로 플랫폼 바이너리 해결.
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
