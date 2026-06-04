@@ -496,7 +496,8 @@ hr.track-divider {
 
 /* ─── 플레이백 컨트롤 ─────────────────────────────── */
 #playback.playback {
-	padding: var(--space-3) 0 0;
+	/* @MX:NOTE: 좌우 패딩으로 컨트롤·step-label이 카드 경계에 닿지 않게 호흡 공간 확보. */
+	padding: var(--space-3) var(--space-3) var(--space-2);
 	/* @MX:NOTE: JS가 컨트롤을 채우기 전 높이를 예약해 초기 로드 CLS(레이아웃 시프트) 완화. step079 성능. */
 	min-height: 96px;
 }
