@@ -612,7 +612,8 @@ hr.track-divider {
 .playback-progress {
 	display: flex;
 	align-items: center;
-	gap: var(--space-2);
+	/* @MX:NOTE: 슬라이더 끝(thumb 100%)과 step-label이 붙지 않도록 간격 확보. */
+	gap: var(--space-3);
 	flex: 1;
 	min-width: 160px;
 }
@@ -628,6 +629,9 @@ hr.track-divider {
 	cursor: pointer;
 	transition: background var(--dur) var(--ease);
 	accent-color: var(--accent);
+	/* @MX:NOTE: thumb(16px)이 양 끝에서 트랙 밖으로 잘리지 않도록 좌우 여백 확보. */
+	margin: 0 var(--space-1);
+	box-sizing: border-box;
 }
 
 .progress-slider:focus-visible {
@@ -660,6 +664,10 @@ hr.track-divider {
 	font-size: var(--fs-1);
 	color: var(--muted);
 	white-space: nowrap;
+	/* @MX:NOTE: 자리수 변동(1/58 ↔ 58/58)에도 폭 고정 + 우측 호흡 공간. */
+	min-width: 72px;
+	text-align: right;
+	flex-shrink: 0;
 }
 
 /* ─── 푸터 (키보드 힌트) ─────────────────────────── */
